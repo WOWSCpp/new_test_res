@@ -306,7 +306,11 @@ if __name__ == '__main__':
 	path6 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_6%_area_100%hot_wb_randread\\stable"
 	path7 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_5g_area_wb_randread\\warmup"
 	path8 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_5g_area_wb_randread\\stable"
-	os.chdir(path8)
+	path9 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_7%_area_100%hot_wb_randread\\warmup"
+	path10 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_7%_area_100%hot_wb_randread\\stable"
+	path11 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_8%_area_100%hot_wb_randread\\warmup"
+	path12 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_8%_area_100%hot_wb_randread\\stable"
+	os.chdir(path6)
 
 
 	f = FioAnalyzer()
