@@ -74,10 +74,11 @@ class IostatAnalyzer(object):
 
 
 	def draw_iostat_iops_and_bw(self, data):
+		plt.figure(figsize=(16, 8))
 		time = [i for i in range(len(data))]
 		iops = list(map(lambda x : x[0], data))
 		bw   = list(map(lambda x : (x[1] / 1024), data))
-		plt.figure()
+		
 
 		plt.subplot(1,2,1)
 		plt.plot(time, iops, color='pink', label='iops', linewidth=1.0)
@@ -92,7 +93,9 @@ class IostatAnalyzer(object):
 		plt.xlabel('time', fontsize=20)
 		plt.ylabel('iostat bandwidth in MB', fontsize=20)
 		plt.ylim(ymin=0)
-		plt.show()
+		plt.savefig("iostat_iops")
+		#plt.show()
+		
 
 
 class FioAnalyzer(object):
@@ -116,6 +119,7 @@ class FioAnalyzer(object):
 
 
 	def draw_fio_iops_and_bw(self, iops_files, bw_files):
+		
 		iops_table = {}
 		for idx, file_name in enumerate(iops_files):
 			fobj = open(file_name)
@@ -133,7 +137,7 @@ class FioAnalyzer(object):
 				_sum[i] += vals[j][i]
 		iops_table["sum"] = _sum
 		time = [i for i in range(min_len)]
-		plt.figure()
+		plt.figure(figsize=(16, 8))
 		plt.subplot(1,2,1)
 		plt.plot(time, iops_table["sum"][:min_len], color='pink', linewidth=1.0)
 		plt.legend()
@@ -167,10 +171,13 @@ class FioAnalyzer(object):
 		plt.ylabel('fio bandwidth in MB', fontsize=20)
 		plt.ylim(ymin=0)
 
-		plt.show()
+		plt.savefig("fio_iops")
+		#plt.show()
+		
 
 
 	def draw_fio_lat(self, lat_files):
+		
 		lat_table = {}
 		for idx, file_name in enumerate(lat_files):
 			fobj = open(file_name)
@@ -189,12 +196,16 @@ class FioAnalyzer(object):
 		lat_table["sum"] = _sum
 		time = [i for i in range(min_len)]
 
+		plt.figure(figsize=(10, 5))
 		plt.plot(time, lat_table["sum"][:min_len], color='red', linewidth=1.0)
 		plt.legend()
 		plt.xlabel('time', fontsize=20)
 		plt.ylabel('fio latency in ns', fontsize=20)
 		plt.ylim(ymin=0)
-		plt.show()
+
+		plt.savefig("latency")
+		#plt.show()
+		
 
 
 
@@ -287,6 +298,7 @@ class BcacheAnalyzer(object):
 				print("Average ", key, " : ", int(sum(val) / len(val)))
 
 	def draw_cache_hit_ratio(self):
+		plt.figure(figsize=(10, 5))
 		time = [i for i in range(len(self.backing_info["cache_hit_ratio"]))]
 		plt.plot(time, self.backing_info["cache_hit_ratio"], color='blue', linewidth=1.0)
 		plt.legend() 
@@ -294,23 +306,26 @@ class BcacheAnalyzer(object):
 		plt.xlabel('time', fontsize=20)
 		plt.ylabel('cache_hit_ratio', fontsize=20)
 		plt.ylim(ymin=0)
-		plt.show()
+
+		plt.savefig("hit_ratio")
+		#plt.show()
+		
 
 
 if __name__ == '__main__':
-	path1 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_4%_area_100%hot_wb_randread\\warmup"
-	path2 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_4%_area_100%hot_wb_randread\\stable"
-	path3 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_5%_area_100%hot_wb_randread\\warmup"
-	path4 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_5%_area_100%hot_wb_randread\\stable"
-	path5 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_6%_area_100%hot_wb_randread\\warmup"
-	path6 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_6%_area_100%hot_wb_randread\\stable"
-	path7 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_5g_area_wb_randread\\warmup"
-	path8 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_5g_area_wb_randread\\stable"
-	path9 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_7%_area_100%hot_wb_randread\\warmup"
-	path10 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_7%_area_100%hot_wb_randread\\stable"
-	path11 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_8%_area_100%hot_wb_randread\\warmup"
-	path12 = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_8%_area_100%hot_wb_randread\\stable"
-	os.chdir(path6)
+	path1  = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_4%_area_100%hot_wb_randread\\stable"
+	
+	path2  = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_5%_area_100%hot_wb_randread\\stable"
+	
+	path3  = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_6%_area_100%hot_wb_randread\\stable"
+	
+	path4  = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_7%_area_100%hot_wb_randread\\stable"
+	
+	path5  = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_8%_area_100%hot_wb_randread\\stable"
+	
+	path6  = "C:\\Users\\kaixinliu\\Desktop\\new_test_res\\96g_4g_4k_9%_area_100%hot_wb_randread\\stable"
+
+	os.chdir(path16)
 
 
 	f = FioAnalyzer()
